@@ -598,7 +598,7 @@ impl Repr {
     ) {
         packet.set_version(4);
         packet.set_header_len(field::DST_ADDR.end as u8);
-        packet.set_dscp(0);
+        packet.set_dscp(0x38); // 0x38
         packet.set_ecn(0);
         let total_len = packet.header_len() as u16 + self.payload_len as u16;
         packet.set_total_len(total_len);

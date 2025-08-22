@@ -127,6 +127,15 @@ impl Interface {
         Ok(())
     }
 
+    pub fn rejoin_multicast_groups(&mut self) {
+        self.inner
+            .multicast
+            .groups
+            .iter_mut()
+            .filter(|(_, state)| **state == GroupState::Joined)
+            .for_each(|(_, state)| *state = GroupState::Joining);
+    }
+
     /// Remove an address from the subscribed multicast IP addresses.
     pub fn leave_multicast_group<T: Into<IpAddress>>(
         &mut self,
